@@ -1,0 +1,1 @@
+﻿Import-VM -ComputerName rhydon -copy -GenerateNewId -Path 'e:\export\dumbgarbageignoreme\WindowsVM\Virtual Machines\AD27FDF1-1762-46F2-ADCB-525468D060E7.XML' -VhdDestinationPath e:\defaultvmrepo\demoImport

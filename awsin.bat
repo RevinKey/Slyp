@@ -1,0 +1,2 @@
+:: se2016-slick ubuntu.ova
+"C:\Program Files\Amazon\AWSCLI\aws.exe" ec2 import-image --cli-input-json "{ \"Description\": \"Windows Test\", \"DiskContainers\": [ { \"Description\": \"asdf\", \"UserBucket\": { \"S3Bucket\": \"%1\", \"S3Key\": \"%2\" } } ]}"
