@@ -5,34 +5,24 @@ from VCSlyp import vcenter
 import subprocess
 import os
 from ConfigParser import SafeConfigParser
+parser = SafeConfigParser()
+parser.read('config.ini')
 AWS = AWSlyp()
 def AWSPowerOn():
-    print("Please enter the instance ID that you would like to start:")
-    instanceId = raw_input()
-    AWS.powerOn(instanceId)
+    AWS.powerOn(parser.get('AWS','instance_id'))
 
 def AWSStop():
-    print("Please enter the instance ID that you would like to stop:")
-    instanceId = raw_input()
-    AWS.powerOff(instanceId)
+    AWS.powerOff(parser.get('AWS','instance_id'))
 
 def AWSImport():
-    print("Please enter the name of an existing S3 Bucket: ")
-    bucket = raw_input()
-    print("Please enter the filename to import, existing in the S3 bucket {"+bucket+"}:")
-    filename = raw_input()
-    AWS.vmImport(bucket, filename)
+    AWS.vmImport(parser.get('AWS','s3'), parser.get('AWS','image'))
     print("Importing to AWS")
     raw_input("Press Enter to continue...")
 
 def AWSExport():
-    print("Please enter the name of the instance to export: ")
-    instance = input()
-    print("Please enter the name of an existing S3 Bucket to store the export: ")
-    bucket = input()
-    AWS.vmExport(instance, bucket)
+    AWS.vmExport(parser.get('AWS','instance_id'), parser.get('AWS','s3'))
     print("Exorting from AWS")
-    raw_input("Press Enter to continue...")
+    
 def logo():
     #os.system('cls')
     print("                                                           .                                                           ")

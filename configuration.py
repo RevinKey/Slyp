@@ -10,6 +10,8 @@ class config():
         
         esxi=raw_input("What is the esxi IP/hostname: ")
         parser.set('VCenter', 'esxi',esxi)
+        with open('config.INI', 'w') as configfile:    # save
+            parser.write(configfile)
         vcenter=raw_input("What is the Vcenter IP/hostname: ")
         parser.set('VCenter','vcenter',vcenter)
         port=raw_input("What is the vcenter port(443): ")
@@ -22,12 +24,6 @@ class config():
         parser.set('VCenter','esxiuser',esxiuser)
         esxipw=raw_input("What is the esxi password: ")
         parser.set('VCenter','esxipw',esxipw)
-        datacenter_name=raw_input("What is the datacenter_name: ")
-        parser.set('VCenter','datacenter_name',datacenter_name)
-        datastore_name=raw_input("What is the datastore_name: ")
-        parser.set('VCenter','datastore_name',datastore_name)
-        cluster_name=raw_input("What is the cluster_name: ")
-        parser.set('VCenter','cluster_name',cluster_name)
         vmdk_path=raw_input("What is the vmdk_path: ")
         parser.set('VCenter','vmdk_path',vmdk_path)
         ovf_path=raw_input("What is the ovf_path: ")
@@ -44,8 +40,18 @@ class config():
         parser.set('HyperV','vmnameHV',vmnameHV)
         vhd_path=raw_input("What is the vhd path: ")
         parser.set('HyperV','vhd_path',vhd_path)
+        print("------------------------------")
+        print("Now for the AWS setup")
+        aws=raw_input("What is the AWS Instance ID: ")
+        parser.set('AWS','instance_id',aws)
+        aws_s3=raw_input("What is the name of your S3 Bucket: ")
+        parser.set('AWS','s3',aws_s3)
+        aws_image=raw_input("What is the exported image name to look for in S3: ")
+        parser.set('AWS','image',aws_image)
 
       
+        with open('config.INI', 'w') as configfile:    # save
+            parser.write(configfile)
         print("------------------------------")
 
 

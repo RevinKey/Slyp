@@ -1,1 +1,9 @@
-﻿Import-VM -ComputerName rhydon -copy -GenerateNewId -Path 'e:\export\dumbgarbageignoreme\WindowsVM\Virtual Machines\AD27FDF1-1762-46F2-ADCB-525468D060E7.XML' -VhdDestinationPath e:\defaultvmrepo\demoImport
+﻿param(
+[string]$server= 0,
+[string]$source= 0,
+[string]$dest= 0
+)
+#$server = Read-Host -Prompt 'Input your server name/IP'
+#$source= Read-Host -Prompt 'What is the source xml(full path)'
+#$dest= Read-Host -Prompt 'What is the destination drivefor the vm'
+Import-VM -ComputerName $server -copy -GenerateNewId -Path $source -VhdDestinationPath $dest

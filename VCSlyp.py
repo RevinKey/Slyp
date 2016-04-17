@@ -30,29 +30,11 @@ class vcenter():
     Vuser= parser.get('VCenter','Vuser')
     esxiPW = parser.get('VCenter','esxipw')
     vcenterPW =parser.get('VCenter','vcenterpw')
-    datacenter_name = parser.get('VCenter','datacenter_name')
-    datastore_name = parser.get('VCenter','datastore_name')
-    cluster_name = parser.get('VCenter','cluster_name')
     vmdk_path = parser.get('VCenter','vmdk_path')
     ovf_path = parser.get('VCenter','ovf_path')
     vmname = parser.get('VCenter','vmnameVC')
     prefix_clone = "clone-"
-    create_ovafile = "no"
     halt_vm = "no"
-
-    esxi = "192.168.0.4"
-    vcenter = "192.168.0.5"
-    port = "443"
-    user = "root"
-    Vuser="kierandunbar\reynolds"
-    esxiPW = "Gooblefleezer1!"
-    vcenterPW = "g!g@war3"
-    datacenter_name = ""
-    datastore_name = ""
-    cluster_name = ""
-    vmdk_path = "vcenter-system.vmdk"
-    ovf_path = "vcenter.ovf"
-    vmname = "ubuntu"
 
     
     def str2bool(self,val):
@@ -110,13 +92,11 @@ class vcenter():
                 filter.Destroy()
 
     def GetConnectionESXI(self):
-        host1 = self.esxi
-        pw = self.esxiPW
 
         context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
         context.verify_mode = ssl.CERT_NONE
         try:
-            si = connect.SmartConnect(host=host1, user=self.user, pwd=pw, port=int(self.port),
+            si = connect.SmartConnect(host=self.esxi, user=self.user, pwd=self.esxiPW, port=int(self.port),
                                       sslContext=context)
         except IOError:
             pass
@@ -126,17 +106,15 @@ class vcenter():
         return si
 
     def GetConnectionV(self):
-        host1 = self.vcenter
-        pw = self.vcenterPW
         context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
         context.verify_mode = ssl.CERT_NONE
         try:
-            si = connect.SmartConnect(host=host1, user=self.user, pwd=pw, port=int(self.port),
+            si = connect.SmartConnect(host=self.vcenter, user=self.Vuser, pwd=self.vcenterPW, port=int(self.port),
                                       sslContext=context)
         except IOError:
             pass
             if not si:
-                print("VcenterCannot connect to specified host using specified username and password")
+                print("Vcenter Cannot connect to specified host using specified username and password")
                 sys.exit()
         return si
 
@@ -176,8 +154,8 @@ class vcenter():
         print("Virtual Machine(s) have been powered off successfully")
 
     def exportVM(self):
-	p=subprocess.call(["powershell.exe","C:\\Slyp\\ExportVM.ps1"])
+	p=subprocess.call(["powershell.exe","C:\\Slyp\\ExportVM.ps1", self.vcenter, self.Vuser, self.vcenterPW, self.vmname])
 
     def importVM(self):
-	p=subprocess.call(["powershell.exe","C:\\Slyp\\ImportVM.ps1"])
+	p=subprocess.call(["powershell.exe","C:\\Slyp\\ImportVM.ps1", self.vcenter, self.Vuser, self.vcenterPW, self.vmdk_path])
 

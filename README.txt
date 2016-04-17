@@ -14,7 +14,7 @@ To Download and Install
 git clone http://github.com/revinkey/Slyp.git
 
 ## Usage
-From Powershell change directry into the cloned directory from git clone http://github.com/revinkey/Slyp.git
+From Powershell git clone http://github.com/revinkey/Slyp.git into C:\Slyp
 to activate the virtual-env run, "./env/Scripts/activate" 
 
 To start Slyp Run:
